@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Your Trip | WanderMap</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://source.unsplash.com/1600x900/?travel,journey') no-repeat center center/cover;
+            color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 50px auto;
+            width: 90%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .recommendations {
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .recommendations h3 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .recommendations ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .recommendations ul li {
+            padding: 5px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Plan Your Trip</h1>
+        <form id="tripForm">
+            <div class="form-group">
+                <label for="budget">Enter Your Budget (in INR)</label>
+                <select id="budget" name="budget" required>
+                    <option value="">-- Select Budget --</option>
+                    <option value="10000">10,000 INR</option>
+                    <option value="20000">20,000 INR</option>
+                    <option value="30000">30,000 INR</option>
+                    <option value="40000">40,000 INR</option>
+                    <option value="50000">50,000 INR</option>
+                    <option value="60000">60,000 INR</option>
+                    <option value="70000">70,000 INR</option>
+                    <option value="80000">80,000 INR</option>
+                    <option value="90000">90,000 INR</option>
+                    <option value="100000">1,00,000 INR</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="season">Preferred Season</label>
+                <select id="season" name="season" required>
+                    <option value="">-- Select Season --</option>
+                    <option value="summer">Summer</option>
+                    <option value="winter">Winter</option>
+                                    </select>
+            </div>
+
+            <div class="form-group">
+                <label for="transport">Mode of Transport</label>
+                <select id="transport" name="transport" required>
+                    <option value="">-- Select Mode --</option>
+                    <option value="car">Car</option>
+                    <option value="train">Train</option>
+                    <option value="flight">Flight</option>
+                    <option value="bus">Bus</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="days">Number of Days</label>
+                <input type="number" id="days" name="days" placeholder="e.g., 3" required>
+            </div>
+
+            <button type="button" class="btn" onclick="getRecommendations()">Submit Preferences</button>
+        </form>
+
+        <div id="recommendations" class="recommendations" style="display: none;">
+            <h3>Recommended Destinations</h3>
+            <ul id="destinationsList"></ul>
+        </div>
+    </div>
+
+    <script>
+        function getRecommendations() {
+            const budget = document.getElementById('budget').value;
+            const season = document.getElementById('season').value;
+            const transport = document.getElementById('transport').value;
+            const days = document.getElementById('days').value;
+
+            const recommendations = {
+                '10000': {
+                    summer: { car: { '3': ['Goa'], '5': ['Lonavala'] }, train: { '3': ['Pondicherry'], '5': ['Kanyakumari'] }, flight: { '3': ['Jaipur'], '5': ['Ahmedabad'] }, bus: { '3': ['Mysore'], '5': ['Coorg'] } },
+                    winter: { car: { '3': ['Agra'], '5': ['Rishikesh'] }, train: { '3': ['Bikaner'], '5': ['Jodhpur'] }, flight: { '3': ['Lucknow'], '5': ['Indore'] }, bus: { '3': ['Hampi'], '5': ['Gokarna'] } }
+                },
+                '20000': {
+                    summer: { car: { '3': ['Udaipur'], '5': ['Mount Abu'] }, train: { '3': ['Manali'], '5': ['Shimla'] }, flight: { '3': ['Goa'], '5': ['Port Blair'] }, bus: { '3': ['Kodaikanal'], '5': ['Ooty'] } },
+                    winter: { car: { '3': ['Ranthambore'], '5': ['Pushkar'] }, train: { '3': ['Haridwar'], '5': ['Varanasi'] }, flight: { '3': ['Jaisalmer'], '5': ['Bhopal'] }, bus: { '3': ['Mahabaleshwar'], '5': ['Alibaug'] } }
+                },
+                '30000': {
+                    summer: { car: { '3': ['Mahabaleshwar'], '5': ['Pachmarhi'] }, train: { '3': ['Dehradun'], '5': ['Mussoorie'] }, flight: { '3': ['Leh'], '5': ['Gangtok'] }, bus: { '3': ['Chikmagalur'], '5': ['Yercaud'] } },
+                    winter: { car: { '3': ['Ajmer'], '5': ['Mandawa'] }, train: { '3': ['Ranchi'], '5': ['Gwalior'] }, flight: { '3': ['Nagpur'], '5': ['Raipur'] }, bus: { '3': ['Pune'], '5': ['Satara'] } }
+                },
+                '40000': {
+                    summer: { car: { '3': ['Kasauli'], '5': ['Nainital'] }, train: { '3': ['Darjeeling'], '5': ['Kalimpong'] }, flight: { '3': ['Munnar'], '5': ['Alleppey'] }, bus: { '3': ['Saputara'], '5': ['Mount Abu'] } },
+                    winter: { car: { '3': ['Chittorgarh'], '5': ['Jhalawar'] }, train: { '3': ['Surat'], '5': ['Rajkot'] }, flight: { '3': ['Srinagar'], '5': ['Auli'] }, bus: { '3': ['Palolem'], '5': ['Varkala'] } }
+                },
+                '50000': {
+                    summer: { car: { '3': ['Bhimtal'], '5': ['Mukteshwar'] }, train: { '3': ['Kalpa'], '5': ['Kinnaur'] }, flight: { '3': ['Andaman'], '5': ['Lakshadweep'] }, bus: { '3': ['Panchgani'], '5': ['Amboli'] } },
+                    winter: { car: { '3': ['Sariska'], '5': ['Bundi'] }, train: { '3': ['Amritsar'], '5': ['Patiala'] }, flight: { '3': ['Shillong'], '5': ['Tawang'] }, bus: { '3': ['Belur'], '5': ['Halebidu'] } }
+                },
+                '60000': {
+                    summer: { car: { '3': ['Lansdowne'], '5': ['Binsar'] }, train: { '3': ['Coorg'], '5': ['Wayanad'] }, flight: { '3': ['Pondicherry'], '5': ['Kumarakom'] }, bus: { '3': ['Pelling'], '5': ['Lachung'] } },
+                    winter: { car: { '3': ['Jaisalmer'], '5': ['Kutch'] }, train: { '3': ['Madurai'], '5': ['Thanjavur'] }, flight: { '3': ['Rishikesh'], '5': ['Mussoorie'] }, bus: { '3': ['Kanyakumari'], '5': ['Chennai'] } }
+                },
+                '70000': {
+                    summer: { car: { '3': ['Khajuraho'], '5': ['Orchha'] }, train: { '3': ['Sikkim'], '5': ['Darjeeling'] }, flight: { '3': ['Kerala'], '5': ['Sikkim'] }, bus: { '3': ['Gokarna'], '5': ['Rameswaram'] } },
+                    winter: { car: { '3': ['Lucknow'], '5': ['Allahabad'] }, train: { '3': ['Bhubaneswar'], '5': ['Puri'] }, flight: { '3': ['Hampi'], '5': ['Belur'] }, bus: { '3': ['Sundarbans'], '5': ['Digha'] } }
+                },
+                '80000': {
+                    summer: { car: { '3': ['Tirthan Valley'], '5': ['Shoja'] }, train: { '3': ['Gulmarg'], '5': ['Sonmarg'] }, flight: { '3': ['North East Circuit'], '5': ['Sikkim and Bhutan'] }, bus: { '3': ['Konkan Coast'], '5': ['Maharashtra Beach Tour'] } },
+                    winter: { car: { '3': ['Bikaner'], '5': ['Jodhpur'] }, train: { '3': ['Hyderabad'], '5': ['Nagarjuna Sagar'] }, flight: { '3': ['Port Blair'], '5': ['Havelock Island'] }, bus: { '3': ['Ranthambore'], '5': ['Jim Corbett'] } }
+                },
+                '90000': {
+                    summer: { car: { '3': ['Yercaud'], '5': ['Coonoor'] }, train: { '3': ['Mysuru'], '5': ['Kabini'] }, flight: { '3': ['Maldives'], '5': ['Sri Lanka'] }, bus: { '3': ['Gandikota'], '5': ['Hampi'] } },
+                    winter: { car: { '3': ['Ahmedabad'], '5': ['Bhuj'] }, train: { '3': ['Kolkata'], '5': ['Sundarbans'] }, flight: { '3': ['Dubai'], '5': ['Thailand'] }, bus: { '3': ['Bhopal'], '5': ['Ujjain'] } }
+                },
+                '100000': {
+                    summer: { car: { '3': ['Lavasa'], '5': ['Sahyadri Hills'] }, train: { '3': ['Gangtok'], '5': ['Tawang'] }, flight: { '3': ['Bali'], '5': ['Singapore'] }, bus: { '3': ['Ajanta Caves'], '5': ['Ellora Caves'] } },
+                    winter: { car: { '3': ['Udaipur'], '5': ['Mount Abu'] }, train: { '3': ['Delhi'], '5': ['Agra'] }, flight: { '3': ['Malaysia'], '5': ['Vietnam'] }, bus: { '3': ['Goa'], '5': ['Hampi'] } }
+                }
+            };
+
+            const selectedBudget = recommendations[budget];
+            const recommendationsDiv = document.getElementById('recommendations');
+            const destinationsList = document.getElementById('destinationsList');
+            destinationsList.innerHTML = '';
+
+            if (selectedBudget && selectedBudget[season] && selectedBudget[season][transport] && selectedBudget[season][transport][days]) {
+                const filteredDestinations = selectedBudget[season][transport][days];
+                filteredDestinations.forEach(destination => {
+                    const li = document.createElement('li');
+                    li.textContent = destination;
+                    destinationsList.appendChild(li);
+                });
+                recommendationsDiv.style.display = 'block';
+            } else {
+                const li = document.createElement('li');
+                li.textContent = 'No destinations found for your selection.';
+                destinationsList.appendChild(li);
+                recommendationsDiv.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

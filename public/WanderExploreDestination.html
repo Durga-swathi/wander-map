@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explore Destinations | WanderMap</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://source.unsplash.com/1600x900/?travel,destination') no-repeat center center/cover;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffcc00;
+      margin-bottom: 30px;
+    }
+
+    .destination-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .destination {
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      width: 250px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .destination:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .destination img {
+      width: 100%;
+      height: 150px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .details {
+      display: none;
+      padding: 20px;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .details h2 {
+      color: #007bff;
+    }
+
+    .back-button, .save-button, .book-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .back-button:hover, .save-button:hover, .book-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+
+  <script>
+    let savedDestinations = [];
+
+    function showDetails(destination) {
+      const destinations = document.querySelector('.destination-list');
+      const details = document.querySelector('.details');
+
+      destinations.style.display = 'none';
+      details.style.display = 'block';
+
+      const title = document.getElementById('details-title');
+      const sightseeing = document.getElementById('sightseeing');
+      const food = document.getElementById('food');
+      const budget = document.getElementById('budget');
+      const flights = document.getElementById('flights');
+
+      const data = {
+        Paris: {
+          sightseeing: 'Eiffel Tower, Louvre Museum, Notre Dame Cathedral',
+          food: 'Croissants, Baguettes, French Cheese',
+          budget: '₹1,50,000 (5 nights)',
+          flights: '₹50,000 - ₹80,000 round trip'
+        },
+        Bali: {
+          sightseeing: 'Ubud Monkey Forest, Tanah Lot Temple, Kuta Beach',
+          food: 'Nasi Goreng, Satay, Bebek Betutu',
+          budget: '₹1,20,000 (5 nights)',
+          flights: '₹40,000 - ₹70,000 round trip'
+        },
+        Dubai: {
+          sightseeing: 'Burj Khalifa, Palm Jumeirah, Dubai Mall',
+          food: 'Shawarma, Al Harees, Falafel',
+          budget: '₹1,80,000 (5 nights)',
+          flights: '₹60,000 - ₹90,000 round trip'
+        },
+        Brazil: {
+          sightseeing: 'Christ the Redeemer, Sugarloaf Mountain, Copacabana Beach',
+          food: 'Feijoada, Pão de Queijo, Açaí',
+          budget: '₹1,40,000 (5 nights)',
+          flights: '₹70,000 - ₹1,00,000 round trip'
+        },
+        "New York": {
+          sightseeing: 'Statue of Liberty, Central Park, Times Square',
+          food: 'Bagels, Hot Dogs, New York Cheesecake',
+          budget: '₹2,00,000 (5 nights)',
+          flights: '₹80,000 - ₹1,20,000 round trip'
+        },
+        China: {
+          sightseeing: 'Great Wall, Forbidden City, Terracotta Army',
+          food: 'Dumplings, Peking Duck, Kung Pao Chicken',
+          budget: '₹1,30,000 (5 nights)',
+          flights: '₹60,000 - ₹90,000 round trip'
+        },
+        Japan: {
+          sightseeing: 'Mount Fuji, Tokyo Tower, Kyoto Temples',
+          food: 'Sushi, Ramen, Tempura',
+          budget: '₹1,70,000 (5 nights)',
+          flights: '₹70,000 - ₹1,10,000 round trip'
+        },
+        Finland: {
+          sightseeing: 'Northern Lights, Helsinki Cathedral, Santa Claus Village',
+          food: 'Salmon Soup, Karelian Pastries, Reindeer Meat',
+          budget: '₹1,90,000 (5 nights)',
+          flights: '₹85,000 - ₹1,20,000 round trip'
+        }
+      };
+
+      const selected = data[destination];
+      title.textContent = destination;
+      sightseeing.textContent = selected.sightseeing;
+      food.textContent = selected.food;
+      budget.textContent = selected.budget;
+      flights.textContent = selected.flights;
+    }
+
+    function goBack() {
+      document.querySelector('.destination-list').style.display = 'flex';
+      document.querySelector('.details').style.display = 'none';
+    }
+
+    function saveDestination() {
+      const destination = document.getElementById('details-title').textContent;
+      if (!savedDestinations.includes(destination)) {
+        savedDestinations.push(destination);
+        alert(destination + ' has been saved for future reference!');
+      } else {
+        alert(destination + ' is already saved.');
+      }
+    }
+
+    function bookTickets() {
+      const destination = document.getElementById('details-title').textContent;
+
+      const data = {
+        Paris: { budget: '₹1,50,000 (5 nights)', flights: '₹50,000 - ₹80,000 round trip' },
+        Bali: { budget: '₹1,20,000 (5 nights)', flights: '₹40,000 - ₹70,000 round trip' },
+        Dubai: { budget: '₹1,80,000 (5 nights)', flights: '₹60,000 - ₹90,000 round trip' },
+        Brazil: { budget: '₹1,40,000 (5 nights)', flights: '₹70,000 - ₹1,00,000 round trip' },
+        "New York": { budget: '₹2,00,000 (5 nights)', flights: '₹80,000 - ₹1,20,000 round trip' },
+        China: { budget: '₹1,30,000 (5 nights)', flights: '₹60,000 - ₹90,000 round trip' },
+        Japan: { budget: '₹1,70,000 (5 nights)', flights: '₹70,000 - ₹1,10,000 round trip' },
+        Finland: { budget: '₹1,90,000 (5 nights)', flights: '₹85,000 - ₹1,20,000 round trip' }
+      };
+
+      const selected = data[destination];
+
+      const url = `BookingTickets.html?destination=${encodeURIComponent(destination)}&budget=${encodeURIComponent(selected.budget)}&flights=${encodeURIComponent(selected.flights)}`;
+      window.location.href = url;    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Explore Destinations</h1>
+    <div class="destination-list">
+      <div class="destination" onclick="showDetails('Paris')">
+        <img src="https://source.unsplash.com/300x200/?paris" alt="Paris">
+        <h3>Paris</h3>
+      </div>
+
+      <div class="destination" onclick="showDetails('Bali')">
+        <img src="https://source.unsplash.com/300x200/?bali" alt="Bali">
+        <h3>Bali</h3>
+      </div>
+
+      <div class="destination" onclick="showDetails('Dubai')">
+        <img src="https://source.unsplash.com/300x200/?dubai" alt="Dubai">
+        <h3>Dubai</h3>
+      </div>
+
+      <div class="destination" onclick="showDetails('Brazil')">
+        <img src="https://source.unsplash.com/300x200/?brazil" alt="Brazil">
+        <h3>Brazil</h3>
+      </div>
+
+      <div class="destination" onclick="showDetails('New York')">
+        <img src="https://source.unsplash.com/300x200/?newyork" alt="New York">
+        <h3>New York</h3>
+      </div>
+
+      <div class="destination" onclick="showDetails('China')">
+        <img src="https://source.unsplash.com/300x200/?china" alt="China">
+        <h3>China</h3>
+      </div>
+
+      <div class="destination" onclick="showDetails('Japan')">
+        <img src="https://source.unsplash.com/300x200/?japan" alt="Japan">
+        <h3>Japan</h3>
+      </div>
+
+      <div class="destination" onclick="showDetails('Finland')">
+        <img src="https://source.unsplash.com/300x200/?finland" alt="Finland">
+        <h3>Finland</h3>
+      </div>
+    </div>
+
+    <div class="details">
+      <h2 id="details-title"></h2>
+      <p><strong>Sightseeing:</strong> <span id="sightseeing"></span></p>
+      <p><strong>Food:</strong> <span id="food"></span></p>
+      <p><strong>Estimated Budget:</strong> <span id="budget"></span></p>
+      <p><strong>Flight Cost:</strong> <span id="flights"></span></p>
+      <a href="#" class="back-button" onclick="goBack()">Back to Destinations</a>
+      <a href="#" class="save-button" onclick="saveDestination()">Save Destination</a>
+      <a href="BookingTicket.html" class="book-button" onclick="bookTickets()">Book Tickets</a>
+    </div>
+  </div>
+</body>
+</html>

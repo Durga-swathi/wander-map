@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to WanderMap</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: url('https://source.unsplash.com/1600x900/?travel') no-repeat center center/cover;
+            color: #fff;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            padding: 40px 20px;
+        }
+
+        .cta {
+            margin: 20px 0;
+        }
+
+        .cta button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .cta button:hover {
+            background-color: #0056b3;
+        }
+
+        .destinations {
+            margin: 30px 0;
+        }
+
+        .destinations img {
+            border-radius: 10px;
+            width: 300px;
+            height: 200px;
+            margin: 10px;
+        }
+
+        nav {
+            margin: 20px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .destinations img {
+                width: 100%;
+                height: auto;
+            }
+
+            nav a {
+                display: block;
+                margin: 10px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome, [User's Name]!</h1>
+        <p>Plan your next adventure with WanderMap.</p>
+    </header>
+
+    <main>
+        <div class="cta">
+            <button onclick="location.href='WanderPlanTrip.html'">Plan a Trip</button>
+            <button onclick="location.href='WanderExploreDestination.html'">Explore Destinations</button>
+        </div>
+
+        <h2>Recommended Destinations</h2>
+        <div class="destinations">
+            <div style="display: inline-block; text-align: center;">
+                <img src="https://static.toiimg.com/photo/59737203.cms" alt="A beautiful beach in Thailand">
+                <p>Thailand</p>
+            </div>
+            <div style="display: inline-block; text-align: center;">
+                <img src="https://res.klook.com/image/upload/q_85/c_fill,w_750/v1654586251/blog/wsnqunszlajd5ypjo29l.jpg" alt="A serene view of Bali">
+                <p>Bali</p>
+            </div>
+            <div style="display: inline-block; text-align: center;">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1l4rUd5bXh7PM_7SjBU6hTtBsMPEix1HWnA&s" alt="The cityscape of New York">
+                <p>New York</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 WanderMap | Designed by AIML Students 2025</p>
+    </footer>
+
+</body>
+</html>

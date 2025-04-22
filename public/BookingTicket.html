@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking Confirmed</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .confirmation-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    h1 {
+      color: #00ffcc;
+    }
+
+    .details {
+      text-align: left;
+      margin-top: 20px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .details strong {
+      color: #ffcc00;
+    }
+
+    a.back-home {
+      display: inline-block;
+      margin-top: 25px;
+      background: #00ffcc;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a.back-home:hover {
+      background-color: #00e6b8;
+    }
+  </style>
+</head>
+<body>
+
+<div class="confirmation-box">
+  <h1>🎉 Booking Confirmed!</h1>
+  <p>We've sent all the travel details to your email 📧</p>
+
+  <div class="details">
+    <p><strong>Destination:</strong> <span id="dest"></span></p>
+    <p><strong>Budget:</strong> <span id="budget"></span></p>
+    <p><strong>Flight Cost:</strong> <span id="flights"></span></p>
+    <p><strong>Start Date:</strong> <span id="startDate"></span></p>
+    <p><strong>Return Date:</strong> <span id="returnDate"></span></p>
+  </div>
+
+  <a href="WanderExploreDestination.html" class="back-home">🏖️ Back to Explore More</a>
+
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const destination = params.get('destination');
+  const budget = params.get('budget');
+  const flights = params.get('flights');
+
+  document.getElementById('dest').textContent = destination;
+  document.getElementById('budget').textContent = budget;
+  document.getElementById('flights').textContent = flights;
+
+  const today = new Date();
+  const returnDate = new Date();
+  returnDate.setDate(today.getDate() + 5);
+
+  document.getElementById('startDate').textContent = today.toDateString();
+  document.getElementById('returnDate').textContent = returnDate.toDateString();
+</script>
+
+</body>
+</html>
