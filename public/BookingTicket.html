@@ -75,20 +75,27 @@
 </div>
 
 <script>
+  // Extract URL parameters from the query string
   const params = new URLSearchParams(window.location.search);
   const destination = params.get('destination');
   const budget = params.get('budget');
   const flights = params.get('flights');
         
+  // Set the content of the spans to the extracted values
+  if (destination && budget && flights) {
+    document.getElementById('dest').textContent = destination;
+    document.getElementById('budget').textContent = budget;
+    document.getElementById('flights').textContent = flights;
+  } else {
+    console.error('Missing URL parameters!');
+  }
 
-  document.getElementById('dest').textContent = destination;
-  document.getElementById('budget').textContent = budget;
-  document.getElementById('flights').textContent = flights;
-
+  // Set the start date (today's date)
   const today = new Date();
   const returnDate = new Date();
   returnDate.setDate(today.getDate() + 5);
 
+  // Update the start and return dates on the page
   document.getElementById('startDate').textContent = today.toDateString();
   document.getElementById('returnDate').textContent = returnDate.toDateString();
 </script>
